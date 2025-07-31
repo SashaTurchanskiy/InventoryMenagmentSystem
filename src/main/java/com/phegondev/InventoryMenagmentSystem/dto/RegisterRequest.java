@@ -1,5 +1,6 @@
 package com.phegondev.InventoryMenagmentSystem.dto;
 
+import com.phegondev.InventoryMenagmentSystem.enums.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -14,6 +15,6 @@ public class RegisterRequest {
     private String phoneNumber;
     @NotBlank(message = "Password is required")
     private String password;
-    private String role; // e.g., "MANAGER", "ADMIN"
+    private UserRole role; // e.g., "MANAGER", "ADMIN"
 
 }
