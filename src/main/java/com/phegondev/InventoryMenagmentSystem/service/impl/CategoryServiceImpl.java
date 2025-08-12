@@ -6,12 +6,15 @@ import com.phegondev.InventoryMenagmentSystem.entity.Category;
 import com.phegondev.InventoryMenagmentSystem.exception.NotFoundException;
 import com.phegondev.InventoryMenagmentSystem.repository.CategoryRepo;
 import com.phegondev.InventoryMenagmentSystem.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
