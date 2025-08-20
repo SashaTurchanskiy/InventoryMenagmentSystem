@@ -22,7 +22,7 @@ public class ProductDto {
     private String name;
     private String sku;
     private BigDecimal price;
-    private Integer sockQuantity;
+    private Integer stockQuantity;
     private String description;
     private LocalDateTime expiryDate;
     private String imageUrl;

@@ -36,7 +36,7 @@ public class Product {
     private BigDecimal price;
 
     @Min(value = 0, message = "Sock quantity must be zero or more")
-    private Integer sockQuantity;
+    private Integer stockQuantity;
 
     private String description;
 
@@ -60,7 +60,7 @@ public class Product {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", expiryDate=" + expiryDate +
                 ", description='" + description + '\'' +
-                ", sockQuantity=" + sockQuantity +
+                ", sockQuantity=" + stockQuantity +
                 ", price=" + price +
                 ", sku='" + sku + '\'' +
                 ", name='" + name + '\'' +
