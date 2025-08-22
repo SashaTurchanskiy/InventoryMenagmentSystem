@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Response saveProduct(ProductDto productDto, MultipartFile imageFile) {
 
-        Category category = categoryRepo.findById(productDto.getProductId())
-                .orElseThrow(()-> new NotFoundException("Category not found with id: " + productDto.getProductId()));
+        Category category = categoryRepo.findById(productDto.getCategoryId())
+                .orElseThrow(()-> new NotFoundException("Category not found with id: "));
 
         //convert the productDto to a product entity
         Product productToSave = Product.builder()
@@ -77,8 +77,10 @@ public class ProductServiceImpl implements ProductService {
         }
         //check if category is to be changed for the product
         if (productDto.getCategoryId() != null && productDto.getName().isBlank()){
-            Category category = categoryRepo.findById(productDto.getProductId())
-                    .orElseThrow(() -> new NotFoundException("Category not found with id: " + productDto.getProductId()));
+
+            Category category = categoryRepo.findById(productDto.getCategoryId())
+                    .orElseThrow(() -> new NotFoundException("Category not found with id: "));
+            existingProduct.setCategory(category);
         }
         //update the product entity with the new values
         if (productDto.getName() != null && !productDto.getName().isBlank()) {
