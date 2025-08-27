@@ -24,4 +24,6 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
             "LOWER(t.description) LIKE LOWER(CONCAT('%', :searchText, '%')) OR " +
             "LOWER(p.name) LIKE LOWER(CONCAT('%', :searchText, '%')))")
     Page<Transaction> searchTransactions(@Param("searchText") String searchText, Pageable pageable);
+
+    List<Transaction> findByMonthAndYear(int month, int year);
 }

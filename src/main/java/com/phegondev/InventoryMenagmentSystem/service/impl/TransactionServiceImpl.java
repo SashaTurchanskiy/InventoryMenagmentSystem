@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -184,16 +185,53 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Response getTransactionById(Long id) {
-        return null;
+        Transaction transaction = transactionRepo.findById(id)
+                .orElseThrow(()-> new NotFoundException("Transaction with ID " + id + " not found"));
+        TransactionDto transactionDto = modelMapper.map(transaction, TransactionDto.class);
+        transactionDto.getUser().setTransactions(null);
+        log.info("Fetched transaction details for ID {}: {}", id, transactionDto);
+        return Response.builder()
+                .status(200)
+                .message("success")
+                .transaction(transactionDto)
+                .build();
     }
 
     @Override
     public Response getAllTransactionByMonthAndYear(int month, int year) {
-        return null;
+
+        List<Transaction> transactions = transactionRepo.findByMonthAndYear(month, year);
+        List<TransactionDto> transactionDTOS = modelMapper
+                .map(transactions, new TypeToken<List<TransactionDto>>() {}.getType());
+
+        transactionDTOS.forEach(transactionDtoItem ->{
+            transactionDtoItem.setUser(null);
+            transactionDtoItem.setProduct(null);
+            transactionDtoItem.setSupplier(null);
+        } );
+
+        log.info("Fetched {} transactions for {}/{}", transactionDTOS.size(), month, year);
+
+        return Response.builder()
+                .status(200)
+                .message("success")
+                .transactions(transactionDTOS)
+                .build();
     }
 
     @Override
-    public Response updateTransactionStatus(Long transactionId, TransactionService transactionService) {
-        return null;
+    public Response updateTransactionStatus(Long transactionId, TransactionStatus transactionStatus) {
+        Transaction existingTransaction = transactionRepo.findById(transactionId)
+                .orElseThrow(()-> new NotFoundException("Transaction with ID " + transactionId + " not found"));
+        existingTransaction.setStatus(transactionStatus);
+        existingTransaction.setUpdatedAt(LocalDateTime.now());
+        transactionRepo.save(existingTransaction);
+
+        log.info("Updated transaction ID {} status to {}", transactionId, transactionStatus);
+
+        return Response.builder()
+                .status(200)
+                .message("Transaction status updated successfully")
+                .build();
     }
 }

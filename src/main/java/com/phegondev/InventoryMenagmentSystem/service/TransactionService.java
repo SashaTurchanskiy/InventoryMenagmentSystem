@@ -3,6 +3,7 @@ package com.phegondev.InventoryMenagmentSystem.service;
 import com.phegondev.InventoryMenagmentSystem.dto.CategoryDto;
 import com.phegondev.InventoryMenagmentSystem.dto.Response;
 import com.phegondev.InventoryMenagmentSystem.dto.TransactionRequest;
+import com.phegondev.InventoryMenagmentSystem.enums.TransactionStatus;
 
 public interface TransactionService {
 
@@ -18,7 +19,7 @@ public interface TransactionService {
 
     Response getAllTransactionByMonthAndYear(int month, int year);
 
-    Response updateTransactionStatus(Long transactionId, TransactionService transactionService);
+    Response updateTransactionStatus(Long transactionId, TransactionStatus transactionStatus);
 
 
 }
